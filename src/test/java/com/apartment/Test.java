@@ -18,10 +18,15 @@ public class Test {
         CsvParser parser = new CsvParser(settings);
 
         // parses all rows in one go.
-        List<String[]> allRows = parser.parseAll(getReader("C:\\Users\\jupalsr\\Downloads\\Units.csv"));
+        Test test = new Test();
+        List<String[]> allRows = parser.parseAll(test.getReader("Units.csv"));
         System.out.print(allRows);
     }
-    public static Reader getReader(String relativePath) throws UnsupportedEncodingException {
-        return new InputStreamReader(ClassLoader.getSystemClassLoader().getResourceAsStream(relativePath), "UTF-8");
+    public static Reader getReader(String relativePath) {
+        try {
+            return new InputStreamReader(Test.class.getResourceAsStream(relativePath), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new IllegalStateException("Unable to read input", e);
+        }
     }
 }
