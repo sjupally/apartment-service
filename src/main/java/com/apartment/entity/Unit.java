@@ -1,9 +1,6 @@
 package com.apartment.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Unit {
@@ -19,7 +16,8 @@ public class Unit {
     private Integer parkingSqft;
     private String billerName;
     private String unitCategory;
-
+    @OneToOne(mappedBy = "unit")
+    private Member member;
 
     public Long getId() {
         return id;
@@ -91,5 +89,13 @@ public class Unit {
 
     public void setUnitCategory(String unitCategory) {
         this.unitCategory = unitCategory;
+    }
+
+    public Member getMember() {
+        return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
     }
 }

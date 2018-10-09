@@ -42,7 +42,7 @@ public class Test {
 
                 WebResource webResource = client
                         .resource("http://localhost:8080/unit/");
-                ObjectMapper mapper= new ObjectMapper();
+                ObjectMapper mapper = new ObjectMapper();
 
                 String input = mapper.writeValueAsString(unit);
                 ClientResponse response = webResource.type("application/json")

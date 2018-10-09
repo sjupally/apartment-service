@@ -1,9 +1,6 @@
 package com.apartment.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Member {
@@ -21,6 +18,9 @@ public class Member {
     private String intercom;
     private String ownerShip;
     private String email;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "unit_id")
+    private Unit unit;
 
     public Long getId() {
         return id;
@@ -108,5 +108,13 @@ public class Member {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Unit getUnit() {
+        return unit;
+    }
+
+    public void setUnit(Unit unit) {
+        this.unit = unit;
     }
 }

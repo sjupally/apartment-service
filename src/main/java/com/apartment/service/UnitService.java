@@ -15,7 +15,7 @@ import java.util.Optional;
 @Transactional
 public class UnitService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AuditLogService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UnitService.class);
 
     @Autowired
     private UnitRepository unitRepository;
