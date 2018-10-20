@@ -24,7 +24,7 @@ public class Test {
 
         // parses all rows in one go.
         Test test = new Test();
-        List<String[]> allRows = parser.parseAll(test.getReader("/Units"));
+        List<String[]> allRows = parser.parseAll(test.getReader("/Units.csv"));
         System.out.print(allRows);
         for (String[] s : allRows) {
             Unit unit = new Unit();
