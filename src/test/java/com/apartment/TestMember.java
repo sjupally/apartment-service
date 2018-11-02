@@ -32,7 +32,8 @@ public class TestMember {
             member.setContactNumber("9533783774");
             member.setIntercom("198");
             member.setOwnerShip("O");
-            member.setEmail("srikanth.j@gmail.com");
+            member.setEmail("srikanth.j825@gmail.com");
+
             String input = mapper.writeValueAsString(member);
             System.out.print(input);
             ClientResponse response = webResource.type("application/json").post(ClientResponse.class, input);

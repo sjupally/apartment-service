@@ -81,4 +81,26 @@ public class UnitController {
 
         return new ResponseEntity<Unit>(currentUnit, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/unit/blocks", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<?> getUnitBlocks() {
+        logger.info("UnitController :: Getting All Unit Blocks ");
+        List<String> blocks = unitService.getUnitBlocks();
+        if (blocks.isEmpty()) {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<String>>(blocks, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/unit/floors", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<?> getUnitFloors() {
+        logger.info("UnitController :: Getting All Unit Floors ");
+        List<String> floors = unitService.getUnitFloors();
+        if (floors.isEmpty()) {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<String>>(floors, HttpStatus.OK);
+    }
 }

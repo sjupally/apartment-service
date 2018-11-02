@@ -39,4 +39,14 @@ public class UnitService {
         LOGGER.info("UnitService:::update:::Method Start End");
         unitRepository.save(currentUnit);
     }
+
+    public List<String> getUnitBlocks() {
+        LOGGER.info("UnitService:::getUnitBlocks:::Method Start End");
+        return unitRepository.getUnitBlocks();
+    }
+
+    public List<String> getUnitFloors() {
+        LOGGER.info("UnitService:::getUnitFloors:::Method Start End");
+        return unitRepository.getUnitFloors();
+    }
 }

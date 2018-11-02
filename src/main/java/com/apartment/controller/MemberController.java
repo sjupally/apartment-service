@@ -3,6 +3,7 @@ package com.apartment.controller;
 import com.apartment.entity.Member;
 import com.apartment.service.MemberService;
 import com.apartment.util.CustomErrorType;
+import com.apartment.util.JsonResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +25,18 @@ public class MemberController {
     @ResponseBody
     public ResponseEntity<?> save(@RequestBody Member member) {
         logger.info("MemberController :: Creating Member : {}", member);
+        JsonResponse jsonResponse = new JsonResponse();
         try {
             memberService.save(member);
         } catch (Exception e) {
             logger.error("MemberController :: Error While Creating Member :: ", e);
-            return new ResponseEntity<String>("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+            jsonResponse.setMessage("Internal Server Error");
+            jsonResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<JsonResponse>(jsonResponse, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<String>("Member Added Successfully", HttpStatus.CREATED);
+        jsonResponse.setMessage("Member Added Successfully");
+        jsonResponse.setHttpStatus(HttpStatus.OK);
+        return new ResponseEntity<JsonResponse>(jsonResponse, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/member/", method = RequestMethod.GET)
