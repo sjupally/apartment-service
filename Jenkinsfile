@@ -1,14 +1,38 @@
-node('master') {
-  def workspace = pwd()
+node {
+    def server
+    def buildInfo
+    def rtMaven
 
-  stage 'Git pull'
-  git branch: 'develop', 
-  credentialsId: 'GIT-HUB',
-  url: 'https://github.com/sjupally/apartment-service.git'
+    stage ('Clone') {
+        git url: 'https://github.com/sjupally/apartment-service.git'
+    }
 
-  echo workspace
-  stage 'Builing'
-  def mvnHome = tool name: 'Maven3', type: 'hudson.tasks.Maven$MavenInstallation'
-  sh "cd ${workspace}/; ${mvnHome}/bin/mvn install -Pdevelopment"
-  sh "cd ${workspace}"
+    stage ('Artifactory configuration') {
+        // Obtain an Artifactory server instance, defined in Jenkins --> Manage:
+        //server = Artifactory.server SERVER_ID
+
+        rtMaven = Artifactory.newMavenBuild()
+        rtMaven.tool = Maven3 // Tool name from Jenkins configuration
+        //rtMaven.deployer releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local', server: server
+        //rtMaven.resolver releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot', server: server
+        //rtMaven.deployer.deployArtifacts = false // Disable artifacts deployment during Maven run
+
+        buildInfo = Artifactory.newBuildInfo()
+    }
+
+    stage ('Test') {
+        rtMaven.run pom: 'pom.xml', goals: 'clean test'
+    }
+
+    stage ('Install') {
+        rtMaven.run pom: 'pom.xml', goals: 'install', buildInfo: buildInfo
+    }
+
+    stage ('Deploy') {
+        rtMaven.deployer.deployArtifacts buildInfo
+    }
+
+    stage ('Publish build info') {
+        server.publishBuildInfo buildInfo
+    }
 }
