@@ -1,6 +1,7 @@
 package com.apartment.entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Unit {
@@ -18,6 +19,9 @@ public class Unit {
     private String unitCategory;
     @OneToOne(mappedBy = "unit")
     private Member member;
+
+    @OneToMany(mappedBy = "unit", cascade = CascadeType.ALL)
+    private Set<Invoice> invoices;
 
     public Long getId() {
         return id;
@@ -98,4 +102,6 @@ public class Unit {
     public void setMember(Member member) {
         this.member = member;
     }
+
+
 }
