@@ -1,5 +1,8 @@
 package com.apartment.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -16,7 +19,8 @@ public class Invoice {
     private Date invoiceDate;
     private Date dueDate;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
+    @ManyToOne
     @JoinColumn(name = "unit_id")
     private Unit unit;
 

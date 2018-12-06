@@ -15,14 +15,14 @@ public class TestInvoice {
         try {
             Client client = Client.create();
 
-            WebResource webResource = client.resource("http://localhost:8090/unit/1/invoice/");
+            WebResource webResource = client.resource("http://localhost:8090/unit/41/invoice/");
             ObjectMapper mapper = new ObjectMapper();
             Invoice invoice = new Invoice();
             invoice.setInvoiceDate(new Date());
             invoice.setDueDate(new Date());
             invoice.setInvoiceAmount(123.00);
             invoice.setAccountId(123L);
-            invoice.setComment("Nov Month Maintanance 2018");
+            invoice.setComment("Dec Month Maintanance 2018");
 
             String input = mapper.writeValueAsString(invoice);
             System.out.print(input);

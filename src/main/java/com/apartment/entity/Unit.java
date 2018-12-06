@@ -1,5 +1,7 @@
 package com.apartment.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -101,6 +103,14 @@ public class Unit {
 
     public void setMember(Member member) {
         this.member = member;
+    }
+
+    public Set<Invoice> getInvoices() {
+        return invoices;
+    }
+
+    public void setInvoices(Set<Invoice> invoices) {
+        this.invoices = invoices;
     }
 
 

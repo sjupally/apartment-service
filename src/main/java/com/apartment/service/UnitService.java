@@ -49,4 +49,9 @@ public class UnitService {
         LOGGER.info("UnitService:::getUnitFloors:::Method Start End");
         return unitRepository.getUnitFloors();
     }
+
+    public List<Unit> getUnitsByFloor(String floorNo) {
+        LOGGER.info("UnitService:::getUnitFloors:::Method Start End");
+        return unitRepository.findByFloor(floorNo);
+    }
 }
