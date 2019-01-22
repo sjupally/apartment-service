@@ -15,10 +15,15 @@ public class Invoice {
     private String comment;
     private Date invoiceDate;
     private Date dueDate;
+    private String postedBy;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "unit_id")
     private Unit unit;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "receipt_id")
+    private Receipt receipt;
 
     public Long getId() {
         return id;
@@ -76,6 +81,14 @@ public class Invoice {
         this.unit = unit;
     }
 
+    public String getPostedBy() {
+        return postedBy;
+    }
+
+    public void setPostedBy(String postedBy) {
+        this.postedBy = postedBy;
+    }
+
     @Override
     public String toString() {
         return "Invoice{" +
@@ -85,6 +98,7 @@ public class Invoice {
                 ", comment='" + comment + '\'' +
                 ", invoiceDate=" + invoiceDate +
                 ", dueDate=" + dueDate +
+                ", postedBy='" + postedBy + '\'' +
                 ", unit=" + unit +
                 '}';
     }

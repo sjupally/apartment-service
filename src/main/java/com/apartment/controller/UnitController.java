@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/v1")
 public class UnitController {
 
     @Autowired
@@ -28,7 +29,7 @@ public class UnitController {
             unitService.save(unit);
         } catch (Exception e) {
             logger.error("UnitController :: Error While Creating Unit :: ", e);
-            return new ResponseEntity<String>("Internel Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<String>("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<String>("Unit Added Successfully", HttpStatus.CREATED);
     }

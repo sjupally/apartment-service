@@ -41,7 +41,7 @@ public class Test {
                 Client client = Client.create();
 
                 WebResource webResource = client
-                        .resource("http://localhost:8090/unit/");
+                        .resource("http://localhost:8080/v1/unit/");
                 ObjectMapper mapper = new ObjectMapper();
 
                 String input = mapper.writeValueAsString(unit);
