@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.QueryParam;
 import java.util.List;
 
 @RestController
@@ -41,6 +42,19 @@ public class UnitController {
         List<Unit> units = unitService.findAllUnits();
         if (units.isEmpty()) {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<Unit>>(units, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/unitsByFloor", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<?> getUnitsByFloor(@QueryParam("floorNo") String floorNo) {
+        logger.info("Fetching Units with floorNo {}", floorNo);
+        List<Unit> units = unitService.getUnitsByFloor(floorNo);
+        if (units.isEmpty()) {
+            logger.error("Units with floorNo {} not found.", floorNo);
+            return new ResponseEntity(new CustomErrorType("Units with floorNo {} " + floorNo
+                    + " not found"), HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<List<Unit>>(units, HttpStatus.OK);
     }
